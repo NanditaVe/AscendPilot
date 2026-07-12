@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import mysql.connector
 from datetime import datetime
@@ -20,10 +22,14 @@ mail = Mail(app)
 def get_db_connection():
     try:
         return mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="nandita", 
-            database="ascendpilot" 
+            host=os.environ.get("DB_HOST", "localhost"),
+            user=os.environ.get("DB_USER", "root"),
+            password=os.environ.get("DB_PASSWORD", "nandita"), 
+            database=os.environ.get("DB_NAME", "ascendpilot"),
+            # Cloud port mapping handles remote dynamic port from environment variables
+            port=int(os.environ.get("DB_PORT", 3306)),
+            # Cloud databases (Aiven) demand active SSL parameters validation
+            ssl_disabled=False
         )
     except Exception as e:
         print("Database Connection Error:", e)
