@@ -418,7 +418,7 @@
             <label>Email Address</label>
             <div style="display: flex; gap: 10px;">
               <input type="email" id="profileEmail" value="{{ user.email }}" required readonly style="background-color: #f0fdfd; cursor: not-allowed;">
-              <button type="button" onclick="sendEmailOTP()" style="padding: 10px 15px; background: #2c3d3f; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer; flex-shrink: 0;">Send OTP</button>
+              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); sendEmailOTP();" style="padding: 10px 15px; background: #2c3d3f; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer; flex-shrink: 0;">Send OTP</button>
             </div>
           </div>
           <div class="form-group" style="margin-bottom:0;">
@@ -2361,6 +2361,36 @@
       }
     }
 
+    // DYNAMIC COMPRESSED EMAIL OTP DISPATCH MANAGER
+    function sendEmailOTP() {
+      const emailVal = document.getElementById('profileEmail').value;
+      if (!emailVal) {
+        showNotification("Email address parameter missing!");
+        return;
+      }
+
+      showNotification("Sending secure verification OTP code...");
+
+      // Fire live route pipeline linkage fetch trigger
+      fetch('/api/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailVal })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success) {
+          showNotification("✨ Validation OTP dispatched to your email successfully!");
+        } else {
+          showNotification("OTP Trigger Error: " + data.message);
+        }
+      })
+      .catch(err => {
+        console.error("AJAX Gateway Failure:", err);
+        showNotification("Network timeout error context hit.");
+      });
+    }
+
     function openEditModal() {
       document.getElementById('editName').value = currentUserProfile.name;
       if (currentUserProfile.state) {
@@ -2409,36 +2439,6 @@
         } else {
           showNotification("Sync Failed: " + data.message);
         }
-      });
-    }
-
-    // DYNAMIC COMPRESSED EMAIL OTP DISPATCH MANAGER
-    function sendEmailOTP() {
-      const emailVal = document.getElementById('profileEmail').value;
-      if (!emailVal) {
-        showNotification("Email address parameter missing!");
-        return;
-      }
-
-      showNotification("Sending secure verification OTP code...");
-
-      // Fire live route pipeline linkage fetch trigger
-      fetch('/api/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailVal })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) {
-          showNotification("✨ Validation OTP dispatched to your email successfully!");
-        } else {
-          showNotification("OTP Trigger Error: " + data.message);
-        }
-      })
-      .catch(err => {
-        console.error("AJAX Gateway Failure:", err);
-        showNotification("Network timeout error context hit.");
       });
     }
   </script>
