@@ -1183,7 +1183,7 @@
       <div id="hackathonsListingSection" style="margin-top: 30px;">
         <h3 id="hackathonsHeaderTitle" style="font-size: 18px; margin-bottom: 15px; font-weight: 700; color: var(--text-dark);">🚀 Target Coding Challenges & Hackathons</h3>
         <div id="hackathonsListingsContainer" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px;">
-          <div class="wide-option-card" style="justify-content: center; padding: 40px; color: var(--text-light); background: white; border: 1px solid var(--border); border-radius: 16px; width:100%;">
+          <div class="wide-option-card" style="justify-content: center; padding: 40px; color: var(--text-light); background: white; border: 1px solid var(--border); border-radius: 16px; width: 100%;">
             <p>Please select your domain above to explore active hackathons and coding challenges.</p>
           </div>
         </div>
@@ -1193,7 +1193,7 @@
       <div style="margin-top: 30px;">
         <h3 style="font-size: 18px; margin-bottom: 15px; font-weight: 700; color: var(--text-dark);">💼 Active Internships Opportunities</h3>
         <div id="internshipsListingsContainer" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px;">
-          <div class="wide-option-card" style="justify-content: center; padding: 40px; color: var(--text-light); background: white; border: 1px solid var(--border); border-radius: 16px; width:100%;">
+          <div class="wide-option-card" style="justify-content: center; padding: 40px; color: var(--text-light); background: white; border: 1px solid var(--border); border-radius: 16px; width: 100%;">
             <p>Please select your domain above to check live corporate internships.</p>
           </div>
         </div>
@@ -1335,36 +1335,6 @@
         });
       });
     }
-
-    // DYNAMIC COMPRESSED EMAIL OTP DISPATCH MANAGER
-function sendEmailOTP() {
-  const emailVal = document.getElementById('profileEmail').value;
-  if (!emailVal) {
-    showNotification("Email address parameter missing!");
-    return;
-  }
-
-  showNotification("Sending secure verification OTP code...");
-
-  // Fire live route pipeline linkage fetch trigger
-  fetch('/api/send-otp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: emailVal })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if(data.success) {
-      showNotification("✨ Validation OTP dispatched to your email successfully!");
-    } else {
-      showNotification("OTP Trigger Error: " + data.message);
-    }
-  })
-  .catch(err => {
-    console.error("AJAX Gateway Failure:", err);
-    showNotification("Network timeout error context hit.");
-  });
-}
 
     // REAL-TIME BOOKING EXPIRATION CHECKER
     function checkAndHideExpiredBooking() {
@@ -1723,27 +1693,26 @@ function sendEmailOTP() {
       ]
     };
 
-    // Add this global object inside the <script> tag of dashboard.html
-const entranceExamsData = {
-  pcm: [
-    { name: "JEE Main", details: "National level engineering entrance exam for NITs, IIITs, and CFTIs.", url: "https://jeemain.nta.nic.in/" },
-    { name: "JEE Advanced", details: "Entrance gateway for admission to prestigious Indian Institutes of Technology (IITs).", url: "https://jeeadv.ac.in/" },
-    { name: "BITSAT", details: "University-level online test for admissions to Integrated First Degree programs of BITS Pilani campuses.", url: "https://www.bitsadmission.com/" }
-  ],
-  pcb: [
-    { name: "NEET UG", details: "National Eligibility cum Entrance Test for undergraduate medical (MBBS/BDS) courses.", url: "https://neet.nta.nic.in/" },
-    { name: "AIIMS B.Sc Nursing", details: "Entrance test conducted by AIIMS for premium nursing and paramedical courses.", url: "https://aiimsexams.ac.in/" }
-  ],
-  commerce: [
-    { name: "CUET UG (Commerce)", details: "Common University Entrance Test for B.Com (Hons), BBA, and economics in top central universities like DU.", url: "https://cuet.samarth.ac.in/" },
-    { name: "CA Foundation", details: "Entry-level examination for the Chartered Accountancy course conducted by ICAI.", url: "https://www.icai.org/" }
-  ],
-  arts: [
-    { name: "CLAT", details: "Common Law Admission Test for 5-year integrated Under Graduate law programs (BA LLB) in NLUs.", url: "https://consortiumofnlus.ac.in/" },
-    { name: "NID DAT", details: "National Institute of Design - Design Aptitude Test for Bachelor of Design (B.Des) admission.", url: "https://admissions.nid.edu/" },
-    { name: "CUET UG (Humanities)", details: "Entrance gateway for elite BA Honors trajectories in central universities.", url: "https://cuet.samarth.ac.in/" }
-  ]
-};
+    const entranceExamsData = {
+      pcm: [
+        { name: "JEE Main", details: "National level engineering entrance exam for NITs, IIITs, and CFTIs.", url: "https://jeemain.nta.nic.in/" },
+        { name: "JEE Advanced", details: "Entrance gateway for admission to prestigious Indian Institutes of Technology (IITs).", url: "https://jeeadv.ac.in/" },
+        { name: "BITSAT", details: "University-level online test for admissions to Integrated First Degree programs of BITS Pilani campuses.", url: "https://www.bitsadmission.com/" }
+      ],
+      pcb: [
+        { name: "NEET UG", details: "National Eligibility cum Entrance Test for undergraduate medical (MBBS/BDS) courses.", url: "https://neet.nta.nic.in/" },
+        { name: "AIIMS B.Sc Nursing", details: "Entrance test conducted by AIIMS for premium nursing and paramedical courses.", url: "https://aiimsexams.ac.in/" }
+      ],
+      commerce: [
+        { name: "CUET UG (Commerce)", details: "Common University Entrance Test for B.Com (Hons), BBA, and economics in top central universities like DU.", url: "https://cuet.samarth.ac.in/" },
+        { name: "CA Foundation", details: "Entry-level examination for the Chartered Accountancy course conducted by ICAI.", url: "https://www.icai.org/" }
+      ],
+      arts: [
+        { name: "CLAT", details: "Common Law Admission Test for 5-year integrated Under Graduate law programs (BA LLB) in NLUs.", url: "https://consortiumofnlus.ac.in/" },
+        { name: "NID DAT", details: "National Institute of Design - Design Aptitude Test for Bachelor of Design (B.Des) admission.", url: "https://admissions.nid.edu/" },
+        { name: "CUET UG (Humanities)", details: "Entrance gateway for elite BA Honors trajectories in central universities.", url: "https://cuet.samarth.ac.in/" }
+      ]
+    };
 
     const internshipsDataMap = {
       software: [
@@ -2440,6 +2409,36 @@ const entranceExamsData = {
         } else {
           showNotification("Sync Failed: " + data.message);
         }
+      });
+    }
+
+    // DYNAMIC COMPRESSED EMAIL OTP DISPATCH MANAGER
+    function sendEmailOTP() {
+      const emailVal = document.getElementById('profileEmail').value;
+      if (!emailVal) {
+        showNotification("Email address parameter missing!");
+        return;
+      }
+
+      showNotification("Sending secure verification OTP code...");
+
+      // Fire live route pipeline linkage fetch trigger
+      fetch('/api/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailVal })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success) {
+          showNotification("✨ Validation OTP dispatched to your email successfully!");
+        } else {
+          showNotification("OTP Trigger Error: " + data.message);
+        }
+      })
+      .catch(err => {
+        console.error("AJAX Gateway Failure:", err);
+        showNotification("Network timeout error context hit.");
       });
     }
   </script>
